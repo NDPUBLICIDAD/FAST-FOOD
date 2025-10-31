@@ -1,0 +1,178 @@
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+}
+
+header img {
+  height: 80px;
+}
+
+h1 {
+  color: #facc15;
+  font-size: 2rem;
+  margin-top: 10px;
+  letter-spacing: 1px;
+}
+
+.productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.producto {
+  background-color: #111;
+  border: 1px solid #222;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.producto:hover {
+  transform: scale(1.05);
+}
+
+.producto img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.producto h2 {
+  font-size: 1.2rem;
+  margin: 10px 0 5px;
+}
+
+.producto p {
+  color: #facc15;
+  font-weight: bold;
+}
+
+.producto button {
+  background-color: #3b82f6;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.producto button:hover {
+  background-color: #2563eb;
+}
+
+/* 🔹 Animación al hacer clic en el botón */
+@keyframes pulse {
+  0% { transform: scale(1); background-color: #3b82f6; }
+  50% { transform: scale(1.05); background-color: #2563eb; }
+  100% { transform: scale(1); background-color: #3b82f6; }
+}
+.pulse {
+  animation: pulse 0.4s ease;
+}
+
+/* 🔹 Animación de "temblor" del carrito */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+.shake {
+  animation: shake 0.4s ease;
+}
+
+.carrito {
+  background-color: #111;
+  border: 1px solid #facc15;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 30px auto;
+  max-width: 600px;
+  transition: transform 0.2s;
+}
+
+.carrito h2 {
+  color: #facc15;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+}
+
+.carrito ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.carrito li {
+  background-color: #222;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.carrito li button {
+  background-color: #ef4444;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.carrito li button:hover {
+  background-color: #dc2626;
+}
+
+.total {
+  color: #facc15;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: right;
+}
+
+.whatsapp {
+  display: block;
+  text-align: center;
+  background-color: #22c55e;
+  color: white;
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-size: 1.1rem;
+  transition: background-color 0.3s;
+}
+
+.whatsapp:hover {
+  background-color: #16a34a;
+}
+
+@media (max-width: 600px) {
+  .producto img {
+    height: 180px;
+  }
+}
