@@ -1,4 +1,4 @@
-// Lista de productos con precio regular y combo
+// Lista de productos
 const productos = [
   { id: 1, nombre: "Alitas", precio: 200, precioCombo: 250, imagen: "images/ALITAS.jpg" },
   { id: 2, nombre: "Boneless", precio: 200, precioCombo: 250, imagen: "images/BONELES.jpg" },
@@ -8,14 +8,16 @@ const productos = [
   { id: 6, nombre: "Salchi Papas", precio: 100, precioCombo: 130, imagen: "images/SALCHIPAPAS.jpg" }
 ];
 
-// Variables globales
 let carrito = [];
 
-// Elementos del DOM
 const contenedorProductos = document.getElementById("productos");
 const carritoLista = document.getElementById("carrito-lista");
 const totalElemento = document.getElementById("total");
 const whatsappBtn = document.getElementById("whatsapp-btn");
+const nombreInput = document.getElementById("nombre");
+const direccionInput = document.getElementById("direccion");
+const telefonoInput = document.getElementById("telefono");
+const comentarioInput = document.getElementById("comentario");
 
 // --- Mostrar productos ---
 function mostrarProductos() {
@@ -42,7 +44,7 @@ function mostrarProductos() {
   });
 }
 
-// --- Agregar producto al carrito ---
+// --- Agregar al carrito ---
 function agregarAlCarrito(id) {
   const producto = productos.find(p => p.id === id);
   const select = document.getElementById(`precio-${id}`);
@@ -54,7 +56,7 @@ function agregarAlCarrito(id) {
   actualizarCarrito();
 }
 
-// --- Eliminar producto del carrito ---
+// --- Eliminar producto ---
 function eliminarDelCarrito(index) {
   carrito.splice(index, 1);
   actualizarCarrito();
@@ -86,22 +88,61 @@ function actualizarCarrito() {
   });
 
   totalElemento.textContent = `Total: C$${calcularTotal()}`;
-  actualizarEnlaceWhatsApp();
+  actualizarEstadoBoton();
 }
 
-// --- Generar mensaje de WhatsApp ---
+// --- Validar formulario ---
+function validarFormulario() {
+  const nombre = nombreInput.value.trim();
+  const direccion = direccionInput.value.trim();
+  const telefono = telefonoInput.value.trim();
+  return nombre !== "" && direccion !== "" && telefono !== "";
+}
+
+// --- Habilitar o deshabilitar el botón ---
+function actualizarEstadoBoton() {
+  if (validarFormulario() && carrito.length > 0) {
+    whatsappBtn.disabled = false;
+    whatsappBtn.classList.remove("bg-gray-500", "cursor-not-allowed");
+    whatsappBtn.classList.add("bg-green-500", "hover:bg-green-600");
+  } else {
+    whatsappBtn.disabled = true;
+    whatsappBtn.classList.add("bg-gray-500", "cursor-not-allowed");
+    whatsappBtn.classList.remove("bg-green-500", "hover:bg-green-600");
+  }
+}
+
+// --- Generar mensaje ---
 function generarMensajePedido() {
-  if (carrito.length === 0) return "Aún no has agregado productos.";
-  const mensaje = carrito.map(p => `${p.nombre} (${p.tipo}) - C$${p.precio.toFixed(2)}`).join("%0A");
-  return `Hola, quiero hacer un pedido:%0A${mensaje}%0A%0A*Total: C$${calcularTotal()}*`;
+  const nombre = nombreInput.value.trim();
+  const direccion = direccionInput.value.trim();
+  const telefono = telefonoInput.value.trim();
+  const comentario = comentarioInput.value.trim();
+
+  const pedido = carrito.map(p => `${p.nombre} (${p.tipo}) - C$${p.precio.toFixed(2)}`).join("%0A");
+
+  let mensaje = `*Nuevo pedido*%0A%0ACliente: ${nombre}%0ADirección: ${direccion}%0ATeléfono: ${telefono}%0A%0A${pedido}%0A%0A*Total: C$${calcularTotal()}*`;
+  if (comentario !== "") {
+    mensaje += `%0A%0A📝 Comentario: ${comentario}`;
+  }
+  return mensaje;
 }
 
-// --- Actualizar enlace de WhatsApp ---
-function actualizarEnlaceWhatsApp() {
-  const numero = "50586119179"; // <-- Cambia este número por el tuyo
+// --- Enviar por WhatsApp ---
+whatsappBtn.addEventListener("click", () => {
+  if (!validarFormulario()) {
+    alert("Por favor, complete todos los datos antes de enviar el pedido.");
+    return;
+  }
+  const numero = "50586119179"; // Cambiar por tu número
   const mensaje = generarMensajePedido();
-  whatsappBtn.href = `https://wa.me/${numero}?text=${mensaje}`;
-}
+  window.open(`https://wa.me/${numero}?text=${mensaje}`, "_blank");
+});
 
-// --- Inicialización ---
+// --- Detectar cambios en formulario ---
+[nombreInput, direccionInput, telefonoInput, comentarioInput].forEach(input =>
+  input.addEventListener("input", actualizarEstadoBoton)
+);
+
+// Inicializar
 mostrarProductos();
