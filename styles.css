@@ -167,6 +167,15 @@ h1 {
   transition: background-color 0.3s;
 }
 
+footer{
+  position: absolute;
+  width: 100%;
+  color: #ffffff;
+  background-color: #323131;
+  text-align: center;
+  padding: 10px 0;
+  z-index: 1000;
+
 .whatsapp:hover {
   background-color: #16a34a;
 }
