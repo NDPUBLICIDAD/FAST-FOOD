@@ -186,3 +186,33 @@ footer{
     height: 180px;
   }
 }
+
+.btn-descargar{
+  display: inline-block;
+  padding: 12px 20px;
+  background: #ff6600;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  align-content: center;
+  
+}
+.btn-descargar:hover {
+  background: #fdfcfc;
+  color: #000;
+}
+
+.Centro{
+  text-align: center;
+  width: 100%;
+}
+
+.logo-hover {
+  transition: 0.3s ease;
+}
+
+.logo-hover:hover {
+  content: url("images/ICONO.png");
+}
+
